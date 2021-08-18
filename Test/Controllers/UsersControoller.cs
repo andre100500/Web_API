@@ -13,9 +13,8 @@ using Test.Utils;
 
 namespace Test.Controllers
 {
-    [ApiKey]
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class UsersControoller : ControllerBase
     {
         UserDBContext db;
@@ -34,11 +33,13 @@ namespace Test.Controllers
             }
         }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> Get()
+        [Produces("application/json")]
+        public async Task<ActionResult<IEnumerable<User>>> GetListUsers()
         {
             return await db.users.ToListAsync();
         }
         [HttpPost]
+        [Produces("application/json")]
         public async Task<ActionResult<IEnumerable<User>>> Post(User user)
         {
             if (user == null)
@@ -51,7 +52,8 @@ namespace Test.Controllers
             return Ok(user);
         }
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<User>>> Get(Guid id)
+        [Produces("application/json")]
+        public async Task<ActionResult<IEnumerable<User>>> GetID(Guid id)
         {
             User user = await db.users.FirstOrDefaultAsync(x => x.Id == id);
             if (user == null)
