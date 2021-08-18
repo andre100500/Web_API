@@ -32,6 +32,19 @@ namespace Test.Controllers
                 });
             }
         }
+        //[HttpPost]
+        //[Produces("application/json")]
+        //public async Task<ActionResult<IEnumerable<User>>> Create([FromBody] User users)
+        //{
+        //    if (users == null)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    db.users.Add(users);
+        //    await db.SaveChangesAsync();
+        //    return Ok(users);
+        //    //return CreatedAtRoute("GetTodoItem", new { id = users.Id }, users);
+        //}
         [HttpGet]
         [Produces("application/json")]
         public async Task<ActionResult<IEnumerable<User>>> GetListUsers()
@@ -40,16 +53,16 @@ namespace Test.Controllers
         }
         [HttpPost]
         [Produces("application/json")]
-        public async Task<ActionResult<IEnumerable<User>>> Post(User user)
+        public async Task<ActionResult<IEnumerable<User>>> Post(User users)
         {
-            if (user == null)
+            if (users == null)
             {
                 return BadRequest();
             }
 
-            db.users.Add(user);
+            db.users.Add(users);
             await db.SaveChangesAsync();
-            return Ok(user);
+            return Ok(users);
         }
         [HttpGet("{id}")]
         [Produces("application/json")]
